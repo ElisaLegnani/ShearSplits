@@ -2,7 +2,7 @@ import numpy as np
 import pickle
 import pandas as pd
 import fitsio
-import astropy.units as units
+from astropy import units as u
 from astropy.coordinates import SkyCoord, match_coordinates_sky
 import sys
 
@@ -55,3 +55,65 @@ def assign_balrog_zbins():
     print("Assigned photometric redshift cell (pzc)")
 
     return sample
+
+
+def merge_bagpipes():
+
+    bagpipes_dir = "/global/cfs/cdirs/des/elisa/y3_physical_ia/bagpipes/"
+
+    print("Running merge Bagpipes runs")
+
+    bagpipes_lengths = []
+    data_frames = []
+
+    for i in range(1, 6):
+        bagpipes = fitsio.read(f"{bagpipes_dir}bagpipes_out_BigRun{i}.fits")
+        bagpipes_lengths.append(len(bagpipes))
+        print(f"Length of Bagpipes catalogue {i}: {len(bagpipes)}")
+        data_frames.append(pd.DataFrame(bagpipes))
+
+    bagpipes_merged = pd.concat(data_frames, ignore_index=True)
+    assert len(bagpipes_merged) == sum(bagpipes_lengths), "Merged length mismatch"
+
+    bagpipes_extra = fitsio.read(f"{bagpipes_dir}bagpipes_out_BigRunPatch.fits")
+    print("Length of Bagpipes extra COSMOS catalogue: {len(bagpipes_extra)}\n")
+    df_extra = pd.DataFrame(bagpipes_extra.byteswap().newbyteorder())
+
+    bagpipes_merged = pd.concat([bagpipes_merged, df_extra], ignore_index=True)
+    bagpipes_merged.drop_duplicates(subset=["ID"], inplace=True)
+
+    print(f"Length of merged Bagpipes catalogues: {len(bagpipes_merged)}\n")
+
+    return bagpipes_merged
+
+
+def merge_balrog_bagpipes(balrog, bagpipes):
+    
+    print('Running merge Balrog with Bagpipes')
+    
+    balrog_coords = SkyCoord(ra=balrog['RA'].values*u.degree, dec=balrog['DEC'].values*u.degree)
+    bagpipes_coords = SkyCoord(ra=bagpipes['RA'].values*u.degree, dec=bagpipes['DEC'].values*u.degree)
+    idx, d2d, d3d = match_coordinates_sky(bagpipes_coords, balrog_coords)
+
+    max_sep = 0.05 * u.arcsec # Smaller than 1.5'' - I want 1! obect per single balrog source
+    matched_indices = [i for i, sep in enumerate(d2d) if sep < max_sep]
+    matched_balrog_indices = idx[matched_indices]
+
+    assert len(matched_balrog_indices) <= balrog['ID'].nunique(), "More matches than unique Balrog sources"
+    assert len(matched_indices) <= len(bagpipes), "More matches than Bagpipes sources"
+    
+    print(f'\nLength of Balrog single sources matching by coordinates with Bagpipes: {len(matched_indices)}')
+
+    matching_balrog = balrog.iloc[matched_balrog_indices]
+    
+    # Add all the multiple (injected) sorces to the single sources
+    matching_all = balrog[balrog['ID'].isin(matching_balrog['ID'])]
+
+    print(f'Length of Balrog data matching with Bagpipes: {len(matching_all)}\n')
+
+    merged = pd.merge(bagpipes, matching_all, on='ID', how='inner')
+
+    assert len(merged) == len(matching_all), "Merged length mismatch"
+    
+    return merged
+
