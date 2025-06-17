@@ -178,3 +178,40 @@ def apply_nzs_weighting(mcal_s2n_r, mcal_T_r, mcal_Tpsf):
         
     return overlap_weight
 
+
+columns_to_drop = [
+    'U', 'G', 'R', 'I', 'Z', 'J', 'H', 'Ks',
+    'UERR', 'GERR', 'RERR', 'IERR', 'ZERR', 'JERR', 'HERR', 'KsERR',
+    'Chi^2',
+    'Av_low', 'Av_best', 'Av_high',
+    'fwhm_low', 'fwhm_best', 'fwhm_high',
+    'massf_low', 'massf_best', 'massf_high',
+    'metal_low', 'metal_best', 'metal_high',
+    'tmax_low', 'tmax_best', 'tmax_high',
+    'z_low', 'z_best', 'z_high',
+    'forme_low', 'forme_best', 'forme_high',
+    'sfr_low', 'sfr_best', 'sfr_high',
+    'nsfr_low', 'nsfr_best', 'nsfr_high',
+    'mass__low', 'mass__best', 'mass__high',
+    'tform_low', 'tform_best', 'tform_high',
+    'tquen_low', 'tquen_best', 'tquen_high',
+    'sfh_low', 'sfh_best', 'sfh_high',
+    'photo_low', 'photo_best', 'photo_high',
+    'spect_low', 'spect_best', 'spect_high',
+    'uvj_low', 'uvj_best', 'uvj_high',
+    'chisq_low', 'chisq_best', 'chisq_high',
+    'dust__low', 'dust__best', 'dust__high',
+    'BDF_FLUX_DERED_CALIB_G', 'BDF_FLUX_DERED_CALIB_I', 'BDF_FLUX_DERED_CALIB_R',
+    'BDF_FLUX_DERED_CALIB_U', 'BDF_FLUX_DERED_CALIB_Z',
+    'BDF_FLUX_ERR_DERED_CALIB_G', 'BDF_FLUX_ERR_DERED_CALIB_I', 'BDF_FLUX_ERR_DERED_CALIB_R',
+    'BDF_FLUX_ERR_DERED_CALIB_U', 'BDF_FLUX_ERR_DERED_CALIB_Z',
+    'BDF_MAG_DERED_CALIB_G', 'BDF_MAG_DERED_CALIB_I', 'BDF_MAG_DERED_CALIB_R',
+    'BDF_MAG_DERED_CALIB_U', 'BDF_MAG_DERED_CALIB_Z',
+    'DEC_y', 'FLAGS', 'MASK_FLAGS', 'RA_y',
+    'BDF_FLUX_DERED_CALIB_H', 'BDF_FLUX_DERED_CALIB_J', 'BDF_FLUX_DERED_CALIB_K',
+    'BDF_FLUX_ERR_DERED_CALIB_H', 'BDF_FLUX_ERR_DERED_CALIB_J', 'BDF_FLUX_ERR_DERED_CALIB_K',
+    'BDF_MAG_DERED_CALIB_H', 'BDF_MAG_DERED_CALIB_J', 'BDF_MAG_DERED_CALIB_K',
+    'DEC_jhk', 'FLAGS_jhk', 'MASK_FLAGS_jhk', 'RA_jhk',
+    'FIELD'
+]
+
