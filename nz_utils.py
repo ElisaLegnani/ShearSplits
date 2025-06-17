@@ -5,6 +5,8 @@ from scipy import interpolate as interp
 
 np.random.seed(1738)
 
+# Photo-z calibration uncertainty from Y3 Myles paper 
+dz_calib = np.array([0.015, 0.011, 0.008, 0.015])
 
 def mean_z(pz):
     
