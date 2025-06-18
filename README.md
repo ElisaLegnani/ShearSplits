@@ -9,5 +9,5 @@ Slides with progress [here](https://docs.google.com/presentation/d/1c1TtCute3TPk
 
 Full Balrog-Bagpipes redshift and physical properties distributions
 
-<img class="post-img" height=200 align="left" src="/figures/nzs_hist_full.png"/>
-<img class="post-img" height=200 align="left" src="/figures/stell_ssfr_hist_full.png"/>
+<img class="post-img" height=150 align="left" src="/figures/nzs_hist_full.png"/>
+<img class="post-img" height=150 align="left" src="/figures/stell_ssfr_hist_full.png"/>
