@@ -21,10 +21,10 @@ colors = list(matplotlib.colors.TABLEAU_COLORS.keys())
 colors_bin = ['darkslategray', 'forestgreen', 'goldenrod', 'purple']
 colors_stell_bin = ['tab:blue', 'tab:red']
 
-cmap_blue = LinearSegmentedColormap.from_list("gray_to_blue", [(0.8, 0.8, 0.8), (31/255, 119/255, 180/255)], N=256)
-cmap_orange = LinearSegmentedColormap.from_list("gray_to_orange", [(0.8, 0.8, 0.8), (255/255, 127/255, 14/255)], N=256)
-cmap_green = LinearSegmentedColormap.from_list("gray_to_orange", [(0.8, 0.8, 0.8), (44/255, 160/255, 44/255)], N=256)
-cmap_red = LinearSegmentedColormap.from_list("gray_to_orange", [(0.8, 0.8, 0.8), (214/255, 39/255, 40/255)], N=256)
+cmap_blue = LinearSegmentedColormap.from_list('gray_to_blue', [(0.8, 0.8, 0.8), (31/255, 119/255, 180/255)], N=256)
+cmap_orange = LinearSegmentedColormap.from_list('gray_to_orange', [(0.8, 0.8, 0.8), (255/255, 127/255, 14/255)], N=256)
+cmap_green = LinearSegmentedColormap.from_list('gray_to_orange', [(0.8, 0.8, 0.8), (44/255, 160/255, 44/255)], N=256)
+cmap_red = LinearSegmentedColormap.from_list('gray_to_orange', [(0.8, 0.8, 0.8), (214/255, 39/255, 40/255)], N=256)
 colormaps = [cmap_blue, cmap_orange, cmap_green, cmap_red]
 
 colormaps_bin = []
