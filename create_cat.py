@@ -24,7 +24,7 @@ def assign_balrog_zbins():
     balrog_file = '/global/cfs/cdirs/des/elisa/IA_decisiontree/sompz_data/deep_balrog.csv'
     sample = pd.read_csv(balrog_file)
     print(f'\nLoaded Balrog entries: {len(sample)}')
-    print(f'Unique Balrog sources: {sample["ID"].nunique()}\n')
+    print(f"Unique Balrog sources: {sample['ID'].nunique()}\n")
 
     flux_columns = ['METACAL/flux_i', 'METACAL/flux_r', 'METACAL/flux_z']
     fluxtypes = ['unsheared', 'sheared_1p', 'sheared_1m', 'sheared_2p', 'sheared_2m']
