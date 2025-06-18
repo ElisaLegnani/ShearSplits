@@ -18,6 +18,8 @@ plt.rcParams.update({
     'patch.linewidth':1.8,})
 
 colors = list(matplotlib.colors.TABLEAU_COLORS.keys())
+colors_bin = ['darkslategray', 'forestgreen', 'goldenrod', 'purple']
+colors_stell_bin = ['tab:blue', 'tab:red']
 
 cmap_blue = LinearSegmentedColormap.from_list("gray_to_blue", [(0.8, 0.8, 0.8), (31/255, 119/255, 180/255)], N=256)
 cmap_orange = LinearSegmentedColormap.from_list("gray_to_orange", [(0.8, 0.8, 0.8), (255/255, 127/255, 14/255)], N=256)
@@ -25,6 +27,10 @@ cmap_green = LinearSegmentedColormap.from_list("gray_to_orange", [(0.8, 0.8, 0.8
 cmap_red = LinearSegmentedColormap.from_list("gray_to_orange", [(0.8, 0.8, 0.8), (214/255, 39/255, 40/255)], N=256)
 colormaps = [cmap_blue, cmap_orange, cmap_green, cmap_red]
 
+colormaps_bin = []
+for i, color in enumerate(colors_bin):
+    cmap = LinearSegmentedColormap.from_list(f'gray_to_{color}', [(0.8, 0.8, 0.8), color], N=256)
+    colormaps_bin.append(cmap)
 
 z_params = {
     'xlim': (0, 3),
