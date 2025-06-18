@@ -29,6 +29,18 @@ def var_z(pz):
     return variance / (100**2)
 
 
+def median_z(pz):
+    if np.sum(pz) == 0:
+        return 0.0
+
+    pz_norm = pz / np.sum(pz)  # Normalize
+    cdf = np.cumsum(pz_norm)   # Compute the cumulative distribution
+
+    median_index = np.searchsorted(cdf, 0.5)  # Find index where CDF crosses 0.5
+    return median_index / 100
+
+
+
 def remove_spikes_savgol(z, pz, window_length=25, polyorder=3):
     
     smoothed = savgol_filter(pz, window_length, polyorder)
