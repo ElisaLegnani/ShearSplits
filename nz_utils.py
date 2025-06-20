@@ -40,7 +40,6 @@ def median_z(pz):
     return median_index / 100
 
 
-
 def remove_spikes_savgol(z, pz, window_length=25, polyorder=3):
     
     smoothed = savgol_filter(pz, window_length, polyorder)
@@ -48,7 +47,7 @@ def remove_spikes_savgol(z, pz, window_length=25, polyorder=3):
     return interpolator(z)
 
 
-def pz_normalization(dx, pz):
+def normalize(dx, pz):
     
     norm = np.sum(dx * pz)
     return pz / norm if norm != 0 else pz
@@ -65,4 +64,12 @@ def pile_up(pz, z_bin_width=0.01, cutoff_z=3.0):
 
     # Normalize
     return piled[:z_cutoff_idx] / np.sum(piled[:z_cutoff_idx] * z_bin_width)
+
+
+def pileup_smooth_normalize(pz, z, bin_width = 0.01):
+    
+    dz = np.append(np.diff(z), bin_width)
+    pz_pileup = pile_up(pz)
+    pz_smoothed = remove_spikes_savgol(z, pz_pileup)
+    return normalize(dz, pz_smoothed)
     
