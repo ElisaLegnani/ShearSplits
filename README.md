@@ -11,3 +11,12 @@ Full Balrog-Bagpipes redshift and physical properties distributions
 
 <img class="post-img" height=170 align="left" src="/figures/nzs_hist_full.png"/>
 <img class="post-img" height=170 align="left" src="/figures/stell_ssfr_hist_full.png"/>
+
+<br clear="left"/>
+<br/>
+
+Environment on NERSC:
+```
+source /global/common/software/des/mambaforge/etc/profile.d/conda.sh
+conda activate des-y6
+```
