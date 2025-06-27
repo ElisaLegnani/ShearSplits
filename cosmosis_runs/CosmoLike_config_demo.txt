@@ -1,0 +1,3 @@
+# Type  density[arcmin^-2]   shape-noise   log-normal-shift
+1  density1  shape-noise1  log-normal-shift-zbin
+1  density2  shape-noise2  log-normal-shift-zbin
