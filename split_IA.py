@@ -22,3 +22,30 @@ def get_density(w, w2):
     # area = get_area(ra, dec) * 60 * 60
 
     return a / b / area
+
+
+def write_nz_file(nz1, nz2, output_dir):
+
+    nz1 = nz1 / 100
+    nz2 = nz2 / 100
+    # /100: it's the normalization of the original n(z)s in DESshear.fits
+
+    dt = {"names": ["BIN1", "BIN2"], "formats": [">f8", ">f8"]}
+    NZ = np.zeros(len(nz1), dtype=dt)
+    NZ["BIN1"] = nz1
+    NZ["BIN2"] = nz2
+    # Only used by cosmosis for n(z)s and theta - no need to add density, shape_noise
+
+    output_file = f'{output_dir}/DESshear.fits'
+    with fitsio.FITS('cosmosis_runs/DESshear.fits', "r") as original_fits:
+        with fitsio.FITS(output_file, "rw", clobber=True) as new_fits:
+            # Copy all HDUs except the one to replace
+            for i, hdu in enumerate(original_fits):
+                if i == 4:
+                    # Replace HDU 4 with the new NZ table
+                    new_fits.write_table(NZ)
+                else:
+                    # Copy HDU as-is
+                    new_fits.write(hdu.read(), header=hdu.read_header())
+
+    return 0
