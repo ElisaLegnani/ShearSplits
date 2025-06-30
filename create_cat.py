@@ -21,7 +21,7 @@ def assign_balrog_zbins():
 
     # balrog_file = f'{sompz_data_dir}deep_balrog.pkl' # Was pickled with an older pandas version --> saved to csv
     # sample = pickle.load(open(balrog_file, 'rb'), encoding='latin1')
-    balrog_file = '/global/cfs/cdirs/des/elisa/IA_decisiontree/sompz_data/deep_balrog.csv'
+    balrog_file = '/global/cfs/cdirs/des/elisa/ShearSplits_data/sompz_data/deep_balrog.csv'
     sample = pd.read_csv(balrog_file)
     print(f'\nLoaded Balrog entries: {len(sample)}')
     print(f"Unique Balrog sources: {sample['ID'].nunique()}\n")
@@ -59,7 +59,7 @@ def assign_balrog_zbins():
 
 def merge_bagpipes():
 
-    bagpipes_dir = '/global/cfs/cdirs/des/elisa/y3_physical_ia/bagpipes/'
+    bagpipes_dir = '/global/cfs/cdirs/des/elisa/ShearSplits_data/bagpipes/'
 
     print('Running merge Bagpipes runs\n')
 
@@ -165,7 +165,7 @@ def apply_nzs_weighting(mcal_s2n_r, mcal_T_r, mcal_Tpsf):
     """
     
     # Use lookup tables generated from DES Y3 data
-    grids_dir = '/global/cfs/cdirs/des/elisa/IA_decisiontree/y3_shape_grids/'
+    grids_dir = '/global/cfs/cdirs/des/elisa/ShearSplits_data/y3_shape_grids/'
     w = np.genfromtxt(f'{grids_dir}y3_shape_w_grid_03_31_20.txt')
     r = np.genfromtxt(f'{grids_dir}y3_shape_response_grid_03_31_20.txt')
 
