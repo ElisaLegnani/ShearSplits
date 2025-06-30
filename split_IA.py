@@ -1,4 +1,6 @@
 import numpy as np
+import fitsio
+import shutil
 
 np.random.seed(1738)
 
@@ -48,15 +50,9 @@ def write_nz_file(nz1, nz2, output_dir):
     # Only used by cosmosis for n(z)s and theta - no need to add density, shape_noise
 
     output_file = f'{output_dir}/DESshear.fits'
-    with fitsio.FITS('cosmosis_runs/DESshear.fits', "r") as original_fits:
-        with fitsio.FITS(output_file, "rw", clobber=True) as new_fits:
-            # Copy all HDUs except the one to replace
-            for i, hdu in enumerate(original_fits):
-                if i == 4:
-                    # Replace HDU 4 with the new NZ table
-                    new_fits.write_table(NZ)
-                else:
-                    # Copy HDU as-is
-                    new_fits.write(hdu.read(), header=hdu.read_header())
+    shutil.copy('cosmosis_runs/DESshear.fits', output_file)
+    with fitsio.FITS(output_file, 'rw') as fits:
+        fits[4].write(NZ)
 
     return 0
+    
