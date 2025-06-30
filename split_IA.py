@@ -22,6 +22,17 @@ def get_density(w, w2):
     # area = get_area(ra, dec) * 60 * 60
 
     return a / b / area
+    
+
+def get_log_normal_shift(zbin):
+    # from Oliver's config file
+    log_normal_shift = [
+        0.00452546001972,
+        0.00885240483805,
+        0.0191781225951,
+        0.0328746634851,
+    ]
+    return log_normal_shift[zbin]
 
 
 def write_nz_file(nz1, nz2, output_dir):
