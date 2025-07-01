@@ -54,5 +54,7 @@ def write_nz_file(nz1, nz2, output_dir):
     with fitsio.FITS(output_file, 'rw') as fits:
         fits[4].write(NZ)
 
+    # REMOVE UNUSED HDUs
+
     return 0
     
