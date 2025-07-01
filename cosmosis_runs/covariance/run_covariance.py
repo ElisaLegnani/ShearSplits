@@ -4,15 +4,21 @@ import numpy as np
 import ctypes
 import argparse
 
-def covariance_simple(output_dir):
+base_dir = '/global/u1/e/elegnani/ShearSplits/cosmosis_runs/covariance'
 
-    lib = ctypes.CDLL('curved_sky_covariances_tools.so')
+def covariance(output_dir):
+
+    lib = ctypes.CDLL(f'{base_dir}/curved_sky_covariances_tools.so')
 
     config_file_str = f'{output_dir}/CosmoLike_config.txt' 
     
-    with open('CosmoLike_Cells_list_demo.txt', 'r') as f:
+    with open(f'{base_dir}/CosmoLike_Cells_list_demo.txt', 'r') as f:
         lines = f.readlines()
-    Cell_files_str = [line.replace('output_dir', f'{output_dir}/shear_planck') for line in lines]
+    lines_temp = [line.replace('output_dir', f'{output_dir}/shear_planck') for line in lines]
+
+    Cell_files_str = f'{base_dir}/CosmoLike_Cells_list_temp.txt'
+    with open(Cell_files_str, 'w') as f:
+        f.writelines(lines_temp)
     
     N_lens = 0
     N_source = 2
@@ -95,7 +101,7 @@ def main():
     args = parser.parse_args()
 
     print(f'Run covariance and save it in {args.output_dir}/shear_planck')
-    covariance_simple(args.output_dir)
+    covariance(args.output_dir)
 
           
 if __name__ == "__main__":
