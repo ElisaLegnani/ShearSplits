@@ -11,14 +11,7 @@ def covariance(output_dir):
     lib = ctypes.CDLL(f'{base_dir}/curved_sky_covariances_tools.so')
 
     config_file_str = f'{output_dir}/CosmoLike_config.txt' 
-    
-    with open(f'{base_dir}/CosmoLike_Cells_list_demo.txt', 'r') as f:
-        lines = f.readlines()
-    lines_temp = [line.replace('output_dir', f'{output_dir}/shear_planck') for line in lines]
-
-    Cell_files_str = f'{base_dir}/CosmoLike_Cells_list_temp.txt'
-    with open(Cell_files_str, 'w') as f:
-        f.writelines(lines_temp)
+    Cell_files_str = f'{output_dir}/CosmoLike_Cells_list.txt'
     
     N_lens = 0
     N_source = 2
