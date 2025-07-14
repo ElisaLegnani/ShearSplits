@@ -93,7 +93,7 @@ def main():
     parser.add_argument('output_dir', type=str, help='The output_dir to use')
     args = parser.parse_args()
 
-    print(f'Run covariance and save it in {args.output_dir}/shear_planck')
+    #print(f'Run covariance and save it in {args.output_dir}/shear_planck')
     covariance(args.output_dir)
 
           
